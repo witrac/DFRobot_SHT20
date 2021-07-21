@@ -8,6 +8,8 @@
 #endif
 #include <Wire.h>
 
+#include "sht20_submodule_interface.h"
+
 #define ERROR_I2C_TIMEOUT                     998
 #define ERROR_BAD_CRC                         999
 #define SLAVE_ADDRESS                         0x40 
@@ -31,17 +33,19 @@
 #define SHIFTED_DIVISOR                       0x988000
 #define MAX_COUNTER                           (MAX_WAIT/DELAY_INTERVAL)
 
-class DFRobot_SHT20 
+class DFRobot_SHT20 : public Sht20_submodule_interface
 {
 public:
     void     checkSHT20(void);
     void     setResolution(byte resBits);
     void     writeUserRegister(byte val);
+    void     init( void );
     void     initSHT20(TwoWire &wirePort = Wire);
     void     showReslut(const char *prefix, int val);
     float    readHumidity(void);
     float    readTemperature(void);
     byte     readUserRegister(void);
+    bool     measure_is_ok( float measure );
 
 private:
     TwoWire *i2cPort;

@@ -1,5 +1,9 @@
 #include "DFRobot_SHT20.h"
 
+void DFRobot_SHT20::init( void ) {
+    DFRobot_SHT20::initSHT20();
+}
+
 void DFRobot_SHT20::initSHT20(TwoWire &wirePort)
 {
     i2cPort = &wirePort;
@@ -51,6 +55,15 @@ float DFRobot_SHT20::readTemperature(void)
     float tempTemperature = rawTemperature * (175.72 / 65536.0);
     float realTemperature = tempTemperature - 46.85;
     return (realTemperature);
+}
+
+bool DFRobot_SHT20::measure_is_ok( float measure ) {
+    if( measure == ERROR_I2C_TIMEOUT || measure == ERROR_BAD_CRC ){
+        return( false );
+    }
+    else {
+        return true;
+    }
 }
 
 void DFRobot_SHT20::setResolution(byte resolution)
