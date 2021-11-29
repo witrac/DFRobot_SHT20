@@ -8,7 +8,7 @@
 #endif
 #include <Wire.h>
 
-#include "sht20_submodule_interface.h"
+#include "shtxx_submodule_interface.h"
 
 #define ERROR_I2C_TIMEOUT                     998
 #define ERROR_BAD_CRC                         999
@@ -33,7 +33,7 @@
 #define SHIFTED_DIVISOR                       0x988000
 #define MAX_COUNTER                           (MAX_WAIT/DELAY_INTERVAL)
 
-class DFRobot_SHT20 : public Sht20_submodule_interface
+class DFRobot_SHT20 : public Shtxx_submodule_interface
 {
 public:
     void     checkSHT20(void);
